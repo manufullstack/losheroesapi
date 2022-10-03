@@ -17,7 +17,7 @@ Basado en lo anterior 1 cliente puede tener 1 o mas numeros de telefono/celular 
  El deploy no contiene conexion a bd mysql externa por motivos de costos. Esta con la h2 embebida.
 
 | Metodo | Ruta | Response |
-| ------ | ------ | ------ |
+| ------ | ------ | ------------------------|
 | GET| /customers || Lista de clientes |
 | GET| /customer/id || Cliente |
 | POST| /customers || Agregar un cliente |
@@ -35,3 +35,5 @@ Basado en lo anterior 1 cliente puede tener 1 o mas numeros de telefono/celular 
 | DELETE| /adresses/id || Eliminar una direccion |
 
 *Al eliminar podria usarse borrado logico.
+
+***Falta validar excepciones con RuntimeException. Las reglas de negocio de rut y email no repetidos estan validadas.
