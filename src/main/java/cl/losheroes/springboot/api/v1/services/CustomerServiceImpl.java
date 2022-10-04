@@ -106,26 +106,55 @@ public class CustomerServiceImpl implements ICustomerService {
 		CustomerEntity customerUpdate = customerRepository.findById(id).get();
 
 		if (!customerUpdate.equals(null)) {
-
 			
 			
-			if(customerUpdate.getEmail().equals(customer.getEmail())) {
+			List<?> phones = customer.getPhones();
+			List<?> adresses = customer.getAdresses();
+			
+			if(phones!=(null) || adresses!=(null)) {
 				
-				throw new RepeatedEmailException(customer.getEmail());
+				throw new BadRequestException("Customer Phones or Adresses Not Allowed in the body request.");
+				
 			}
 			
-			if(customerUpdate.getRut().equals(customer.getRut())) {
+			
+			List<CustomerEntity> customers = findAll();
+			
+			for (CustomerEntity c : customers) {
+			
+				if(c.getRut().equals(customer.getRut().toLowerCase())) {  
 				
-				throw new RepeatedRutException(customer.getRut());
+					
+					if (!c.getCustomerId().equals(customerUpdate.getCustomerId())) {
+						throw new RepeatedRutException(customer.getRut());
+					
+					}
+			
+					
+				}
+				if(c.getEmail().equals(customer.getEmail())) {
+					
+					if (!c.getCustomerId().equals(customerUpdate.getCustomerId())) {
+						throw new RepeatedEmailException(customer.getEmail());
+					
+					}
+				
+				
+				}
+				
+				
 			}
 			
 			customerUpdate.setRut(customer.getRut().toLowerCase());
+			
 			customerUpdate.setNames(customer.getNames());
 			customerUpdate.setSurnames(customer.getSurnames());
+			
 			customerUpdate.setEmail(customer.getEmail());
 			customerUpdate.setBirthday(customer.getBirthday());
 			
 			return customerRepository.save(customerUpdate);
+		
 		}
 
 		throw new NotFoundException("Customer with id: "+id);

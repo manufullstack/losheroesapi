@@ -43,6 +43,8 @@ El deploy no contiene conexion a bd mysql externa por motivos de costos economic
 
 El proyecto mantiene una estructura de organizacion con paquetes de entidades, servicios, repositorios y controladores. Lo hice de esa forma ya que es la mas comun y utilizada pero creo que seria mejor y mas mantenible agrupar por funcionalidades.
 
+No se utilizo lombok. Tampoco en la entidades anotaciones como @NotNull o en controladores @Valid.
+
 # Endpoints
  - Deploy en -> https://losheroesapi.herokuapp.com/api/v1
 
@@ -54,17 +56,17 @@ El proyecto mantiene una estructura de organizacion con paquetes de entidades, s
 
 | Metodo | Ruta | Response/Action |
 | ------ | ------ | ------------------------|
-| GET| /customers | Lista de clientes |
+| GET| /customers/ | Lista de clientes |
 | GET| /customer/{id} | Cliente |
-| POST| /customers | Agregar un cliente |
+| POST| /customers/ | Agregar un cliente |
 | PUT| /customers/{id} | Editar un cliente |
 | DELETE| /customers/{id} | Eliminar un cliente |
-| GET| /phones | Lista de telefonos |
+| GET| /phones/ | Lista de telefonos |
 | GET| /phones/{id} | Telefono |
 | POST| /customers/{idCustomer}/phones | Agregar un telefono a un cliente |
 | PUT| /phones/{id} | Editar un telefono |
 | DELETE| /phones/{id} | Eliminar un telefono |
-| GET| /adresses | Lista de direcciones |
+| GET| /adresses/ | Lista de direcciones |
 | GET| /adresses/{id} | Direccion |
 | POST| /customers/{idCustomer}/adresses | Agregar una Direccion a un cliente |
 | PUT| /adresses/{id} | Editar una direccion |
