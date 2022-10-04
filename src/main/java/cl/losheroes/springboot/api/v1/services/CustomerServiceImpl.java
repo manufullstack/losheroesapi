@@ -78,10 +78,9 @@ public class CustomerServiceImpl implements ICustomerService {
 				List<?> phones = customer.getPhones();
 				List<?> adresses = customer.getAdresses();
 				
-				customer.setRut(customer.getRut().toLowerCase());
-				
-				if(phones.size() == 0 || adresses.size() == 0) {
+				if(phones==(null) || adresses==(null)) {
 					
+					customer.setRut(customer.getRut().toLowerCase());
 					return customerRepository.save(customer);
 				}
 				
