@@ -52,7 +52,7 @@ El proyecto mantiene una estructura de organizacion con paquetes de entidades, s
 
 
 
-| Metodo | Ruta | Response |
+| Metodo | Ruta | Response/Action |
 | ------ | ------ | ------------------------|
 | GET| /customers | Lista de clientes |
 | GET| /customer/{id} | Cliente |
@@ -115,7 +115,7 @@ ErrorSkeleton
 ```sh
 {
     error = String / Error que puede traer atributos,
-    message = String / Mensaje detallado del error,
+    message = String / Mensaje explicando el error,
     status = String / Estado HTTP, 
     code = int / Codigo del estado HTTP,
     detail = String / Detalles del error,
