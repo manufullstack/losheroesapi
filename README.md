@@ -10,6 +10,7 @@ BD relacional con las siguientes tablas:
 
 Basado en lo anterior 1 cliente puede tener 1 o mas numeros de telefono/celular y 1 o mas direcciones asociadas.
 
+El proyecto mantiene uan estructura de organizacion con paquetes de entidades, servicios, repositorios y controladores. Lo hice de esa forma ya que es la mas comun utilizada pero creo que seria mejor y mas mantenible agrupar por funcionalidades.
 
 # Endpoints
  - Deploy en -> https://losheroesapi.herokuapp.com/api/v1/
@@ -37,3 +38,13 @@ Basado en lo anterior 1 cliente puede tener 1 o mas numeros de telefono/celular 
 *Al eliminar podria usarse borrado logico.
 
 ***Falta validar excepciones con RuntimeException. Las reglas de negocio de rut y email no repetidos estan validadas.
+
+
+**Para usaar con bd mysql agregar al aplication.properties lo siguiente:
+
+spring.datasource.url=jdbc:mysql://localhost:3306/nombredb
+spring.datasource.username=usuariodb
+spring.datasource.password=password
+spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect

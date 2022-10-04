@@ -11,7 +11,7 @@ public interface IAdressService {
 
 	public AdressEntity findById(Long id);
 
-	public AdressEntity add(AdressEntity adress);
+	public AdressEntity add(AdressEntity adress, Long id);
 
 	public AdressEntity update(AdressEntity adress, Long id);
 

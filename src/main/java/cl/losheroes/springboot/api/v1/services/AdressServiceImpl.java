@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cl.losheroes.springboot.api.v1.controllers.exceptions.BadRequestException;
+import cl.losheroes.springboot.api.v1.controllers.exceptions.NotFoundException;
 import cl.losheroes.springboot.api.v1.entities.AdressEntity;
+import cl.losheroes.springboot.api.v1.entities.CustomerEntity;
+import cl.losheroes.springboot.api.v1.entities.PhoneEntity;
 import cl.losheroes.springboot.api.v1.repositories.IAdressRepository;
 
 @Service
@@ -22,14 +26,44 @@ public class AdressServiceImpl implements IAdressService{
 
 	@Override
 	public AdressEntity findById(Long id) {
-
-		return adressRepository.findById(id).get();
+		
+		AdressEntity adress = adressRepository.findById(id).get(); 
+		
+		if(!adress.equals(null)) {
+			
+			return adress;
+		}
+		
+		throw new NotFoundException("Adress with id: "+id);
 	}
+	
+	
 
 	@Override
-	public AdressEntity add(AdressEntity adress) {
-		return adressRepository.save(adress);
+	public AdressEntity add(AdressEntity adress, Long id) {
+		
+		
+		CustomerEntity customer = new CustomerEntity();
 
+		customer.setCustomerId(id);
+
+		adress.setCustomer(customer);
+
+		adressRepository.save(adress);
+		
+	
+		List<AdressEntity> adresses = findAll();
+	
+		for (AdressEntity a : adresses) {
+			
+			if(a.getAdressCustomer().equals(adress.getAdressCustomer())){
+				
+				return adress;
+			}
+		}
+		
+		throw new BadRequestException("Adress");
+		
 	}
 
 	@Override
@@ -45,7 +79,7 @@ public class AdressServiceImpl implements IAdressService{
 			return adressRepository.save(adress);
 		}
 
-		return null;
+		throw new NotFoundException("Adress with id: "+id);
 	}
 
 	@Override
@@ -58,8 +92,7 @@ public class AdressServiceImpl implements IAdressService{
 			adressRepository.deleteById(id);
 			return a;
 		}
-		return null;
-
+		throw new NotFoundException("Adress with id: "+id);
 	}
 
 }

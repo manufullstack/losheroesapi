@@ -15,18 +15,46 @@ public class ApiExeptionHandler {
 	@ExceptionHandler(NotFoundException.class)
 	@ResponseBody
 	public ErrorSkeleton notFoundException(RuntimeException error){
-		return new ErrorSkeleton(error.getMessage(),"No existen o no se encontraron",HttpStatus.NOT_FOUND,404,"dakljdaskjaklj");
+		return new ErrorSkeleton(error.getMessage(),"No existen o no se encontraron los recursos solicitados.",HttpStatus.NOT_FOUND,404,"El recurso no existe o no se encuentra.");
 
 	}
 	
 	
-	@ResponseStatus(code = HttpStatus.CONFLICT )
-	@ExceptionHandler(RepeatedException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST )
+	@ExceptionHandler(RepeatedEmailException.class)
 	@ResponseBody
-	public ErrorSkeleton repeatedEmail(RuntimeException error){
+	public ErrorSkeleton repeatedEmailException(RuntimeException error){
 		
-		return new ErrorSkeleton(error.getMessage(),"Email repetido, no pueden haber 2 email iguales. intenta con otro.",HttpStatus.CONFLICT,409,"434343432rwed");
+		return new ErrorSkeleton(error.getMessage(),"Email repetido, no pueden haber 2 emails iguales. Intenta con otro.",HttpStatus.BAD_REQUEST,400,"No pueden existir emails repetidos.");
 
 	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST )
+	@ExceptionHandler(RepeatedRutException.class)
+	@ResponseBody
+	public ErrorSkeleton repeatedRutException(RuntimeException error){
+		
+		return new ErrorSkeleton(error.getMessage(),"Rut repetido, no pueden haber 2 ruts iguales. Intenta con otro.",HttpStatus.BAD_REQUEST,400,"No pueden existir ruts repetidos.");
+
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST )
+	@ExceptionHandler(BadRequestException.class)
+	@ResponseBody
+	public ErrorSkeleton badRequestException(RuntimeException error){
+		
+		return new ErrorSkeleton(error.getMessage(),"La solicitud no ha podido ser procesada.",HttpStatus.BAD_REQUEST,400,"El formato o algun recurso son incorrectos.");
+
+	}
+	
+	@ResponseStatus(code = HttpStatus.NO_CONTENT )
+	@ExceptionHandler(NotContentException.class)
+	@ResponseBody
+	public ErrorSkeleton notContentException(RuntimeException error){
+		
+		return new ErrorSkeleton(error.getMessage(),"La solicitud ha sido aceptada.",HttpStatus.NO_CONTENT,204,"Se acepto la solicitud pero no existen datos para devolver.");
+
+	}
+	
 
 }

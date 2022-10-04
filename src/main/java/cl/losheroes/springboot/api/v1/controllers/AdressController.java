@@ -43,7 +43,7 @@ public class AdressController {
 		customer.setCustomerId(id);
 
 		adress.setCustomer(customer);
-		return new ResponseEntity<>(adressService.add(adress), HttpStatus.CREATED);
+		return new ResponseEntity<>(adressService.add(adress,id), HttpStatus.CREATED);
 	}
 
 	@PutMapping(path = "/adresses/{id}")

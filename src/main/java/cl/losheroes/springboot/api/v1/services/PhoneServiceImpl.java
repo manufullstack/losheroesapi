@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cl.losheroes.springboot.api.v1.controllers.exceptions.BadRequestException;
+import cl.losheroes.springboot.api.v1.controllers.exceptions.NotFoundException;
+import cl.losheroes.springboot.api.v1.entities.AdressEntity;
 import cl.losheroes.springboot.api.v1.entities.CustomerEntity;
 import cl.losheroes.springboot.api.v1.entities.PhoneEntity;
 import cl.losheroes.springboot.api.v1.repositories.IPhoneRepository;
@@ -25,8 +28,15 @@ public class PhoneServiceImpl implements IPhoneService {
 
 	@Override
 	public PhoneEntity findById(Long id) {
-
-		return phoneRepository.findById(id).get();
+		
+		PhoneEntity phone = phoneRepository.findById(id).get(); 
+		
+		if(!phone.equals(null)) {
+			
+			return phone;
+		}
+		
+		throw new NotFoundException("Phone with id: "+id);
 	}
 
 	@Override
@@ -38,8 +48,19 @@ public class PhoneServiceImpl implements IPhoneService {
 
 		phone.setCustomer(customer);
 
+		phoneRepository.save(phone);
 
-		return phoneRepository.save(phone);
+		List<PhoneEntity> phones = findAll();
+	
+		for (PhoneEntity p : phones) {
+			
+			if(p.getNumberPhone().equals(phone.getNumberPhone())){
+				
+				return phone;
+			}
+		}
+		
+		throw new BadRequestException("Phone");
 	}
 
 	@Override
@@ -55,7 +76,7 @@ public class PhoneServiceImpl implements IPhoneService {
 			return phoneRepository.save(phone);
 		}
 
-		return null;
+		throw new NotFoundException("Phone with id: "+id);
 
 	}
 
@@ -69,7 +90,7 @@ public class PhoneServiceImpl implements IPhoneService {
 			phoneRepository.deleteById(id);
 			return p;
 		}
-		return null;
+		throw new NotFoundException("Phone with id: "+id);
 	}
 
 
