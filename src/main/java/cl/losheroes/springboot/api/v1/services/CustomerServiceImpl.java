@@ -85,7 +85,7 @@ public class CustomerServiceImpl implements ICustomerService {
 				}
 				
 				
-				throw new BadRequestException("Customer Phones or Adresses Not Allowed");
+				throw new BadRequestException("Customer Phones or Adresses Not Allowed in the body request.");
 				
 			}
 
